@@ -28,7 +28,8 @@ public class DbUtils {
             String username = rs.getString("username");
             String role = rs.getString("role");
             String status = rs.getString("status");
-            User user = new User(id, username, email, password, role, status);
+            float money = rs.getFloat("money");
+            User user = new User(id, username, email, password, role, status, money);
             return user;
         }
         return null;
@@ -50,7 +51,8 @@ public class DbUtils {
             String email = rs.getString("email");
             String role = rs.getString("role");
             String status = rs.getString("status");
-            User user = new User(id, username, email, password, role, status);
+            float money = rs.getFloat("money");
+            User user = new User(id, username, email, password, role, status, money);
             return user;
         }
         return null;
@@ -72,7 +74,8 @@ public class DbUtils {
             String password = rs.getString("password");
             String role = rs.getString("role");
             String status = rs.getString("status");
-            User user = new User(id, username, email, password, role, status);
+            float money = rs.getFloat("money");
+            User user = new User(id, username, email, password, role, status, money);
             return user;
         }
         return null;

@@ -7,8 +7,8 @@ public class User {
     private String password;
     private String role;
     private String status;
-
-    public User(int id, String username, String email, String password, String role, String status) {
+    private float money;
+    public User(int id, String username, String email, String password, String role, String status, float money) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -21,14 +21,16 @@ public class User {
             this.role = role;
         }
         this.status = status;
+        this.money = money;
     }
 
-    public User(String username, String email, String password, String role, String status) {
+    public User(String username, String email, String password, String role, String status, float money) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
         this.status = status;
+        this.money = money;
     }
 
     public User() {}
@@ -79,5 +81,13 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public float getMoney() {
+        return money;
+    }
+
+    public void setMoney(float money) {
+        this.money = money;
     }
 }

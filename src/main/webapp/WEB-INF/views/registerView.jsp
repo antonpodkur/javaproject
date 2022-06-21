@@ -4,29 +4,29 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>Register</title>
 </head>
 <body>
 <jsp:include page="_header.jsp"></jsp:include>
 <jsp:include page="_menu.jsp"></jsp:include>
 
-<h3>Login Page</h3>
+<h3>Register Page</h3>
 <p style="color: red;">${errorString}</p>
 
 
-<form method="POST" action="${pageContext.request.contextPath}/login">
+<form method="POST" action="${pageContext.request.contextPath}/register">
   <table border="0">
     <tr>
       <td>User Name</td>
-      <td><input type="text" name="username" value= "${user.username}" /> </td>
+      <td><input type="text" name="username"/> </td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><input type="text" name="email"/> </td>
     </tr>
     <tr>
       <td>Password</td>
-      <td><input type="text" name="password" value= "${user.password}" /> </td>
-    </tr>
-    <tr>
-      <td>Remember me</td>
-      <td><input type="checkbox" name="rememberMe" value= "Y" /> </td>
+      <td><input type="text" name="password"/> </td>
     </tr>
     <tr>
       <td colspan ="2">

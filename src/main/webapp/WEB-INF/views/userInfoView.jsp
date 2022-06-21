@@ -16,6 +16,8 @@
 User Name: <b>${user.username}</b>
 <br />
 Email: ${user.email} <br />
+<br />
+Money: ${user.money} <br />
 
 <jsp:include page="_footer.jsp"></jsp:include>
 

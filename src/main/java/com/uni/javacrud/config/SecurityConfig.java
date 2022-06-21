@@ -15,6 +15,7 @@ public class SecurityConfig {
     private static void init() {
         List<String> urlPatterns1 = new ArrayList<String>();
         urlPatterns1.add("/userPage");
+        urlPatterns1.add("/addmoney");
 
         mapConfig.put(ROLE_USER, urlPatterns1);
 

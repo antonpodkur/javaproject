@@ -1,6 +1,7 @@
 package com.uni.javacrud.servlet;
 
 import com.uni.javacrud.beans.User;
+import com.uni.javacrud.dao.UserDao;
 import com.uni.javacrud.utils.DbUtils;
 import com.uni.javacrud.utils.MyUtils;
 
@@ -36,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             Connection conn = MyUtils.getStoredConnection(request);
             try {
-                user = DbUtils.findUserByUsername(conn, username, password);
+                user = new UserDao(conn).findUserByUsername(username, password);
 
                 if (user == null) {
                     hasError = true;
