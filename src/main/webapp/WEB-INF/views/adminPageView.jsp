@@ -7,11 +7,15 @@
 
 <body>
 
-<jsp:include page="_menu.jsp"></jsp:include>
+<jsp:include page="_header.jsp"></jsp:include>
 
-<h3>Admin Page</h3>
+<h2>Admin Page</h2>
+<h3>Menu</h3>
+<ul>
+    <li><a href="editionList">Editions</a></li>
+    <li><a href="users">Users</a></li>
+</ul>
 
-Hello, This is a protected page!
-
+<jsp:include page="_footer.jsp"></jsp:include>
 </body>
 </html>

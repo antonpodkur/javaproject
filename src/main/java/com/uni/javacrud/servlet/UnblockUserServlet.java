@@ -1,21 +1,24 @@
 package com.uni.javacrud.servlet;
 
-import com.uni.javacrud.dao.EditionDao;
+import com.uni.javacrud.dao.UserDao;
 import com.uni.javacrud.utils.MyUtils;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(name = "DeleteEditionServlet", value = "/deleteEdition")
-public class DeleteEditionServlet extends HttpServlet {
+@WebServlet(name = "UnblockUserServlet", value = "/unblockUser")
+public class UnblockUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-        EditionDao editionDao = new EditionDao(conn);
+        UserDao userDao = new UserDao(conn);
 
         String idStr = (String) request.getParameter("id");
 
@@ -29,7 +32,7 @@ public class DeleteEditionServlet extends HttpServlet {
         String errorString = null;
 
         try {
-            editionDao.deleteEdition(id);
+            userDao.unblockUserById(id);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -38,17 +41,16 @@ public class DeleteEditionServlet extends HttpServlet {
         if (errorString != null) {
             request.setAttribute("errorString", errorString);
             RequestDispatcher dispatcher = request.getServletContext()
-                    .getRequestDispatcher("/WEB-INF/views/deleteEditionErrorView.jsp");
+                    .getRequestDispatcher("/WEB-INF/views/userListView.jsp");
             dispatcher.forward(request, response);
         }
         else {
-            response.sendRedirect(request.getContextPath() + "/editionList");
+            response.sendRedirect(request.getContextPath() + "/users");
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+
     }
 }

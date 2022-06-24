@@ -4,16 +4,19 @@ import com.uni.javacrud.beans.Edition;
 import com.uni.javacrud.dao.EditionDao;
 import com.uni.javacrud.utils.MyUtils;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "EditionListServlet", value = "/editionList")
-public class EditionListServlet extends HttpServlet {
+@WebServlet(name = "UserEditionListServlet", value = "/userEditions")
+public class UserEditionListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
@@ -30,7 +33,7 @@ public class EditionListServlet extends HttpServlet {
         request.setAttribute("errorString", errorString);
         request.setAttribute("editionList", editions);
 
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/editionListView.jsp");
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/userEditionsView.jsp");
         dispatcher.forward(request, response);
     }
 

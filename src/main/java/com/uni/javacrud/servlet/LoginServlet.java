@@ -2,7 +2,6 @@ package com.uni.javacrud.servlet;
 
 import com.uni.javacrud.beans.User;
 import com.uni.javacrud.dao.UserDao;
-import com.uni.javacrud.utils.DbUtils;
 import com.uni.javacrud.utils.MyUtils;
 
 import javax.servlet.*;
@@ -79,7 +78,12 @@ public class LoginServlet extends HttpServlet {
             if (requestUri != null) {
                 response.sendRedirect(requestUri);
             } else {
-                response.sendRedirect(request.getContextPath() + "/userInfo");
+                if(user.getRole().equals("ADMIN")) {
+                    response.sendRedirect(request.getContextPath() + "/adminPage");
+                }
+                else if(user.getRole().equals("USER")) {
+                    response.sendRedirect(request.getContextPath() + "/userPage");
+                }
             }
         }
     }

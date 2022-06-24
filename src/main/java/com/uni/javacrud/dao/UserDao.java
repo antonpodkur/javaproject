@@ -37,6 +37,27 @@ public class UserDao {
         return users;
     }
 
+    public List<User> queryNonAdminUsers () throws SQLException {
+        String sql = "select * from users where role <> 'ADMIN';";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+
+        List<User> users = new ArrayList<User>();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String username = rs.getString("username");
+            String email = rs.getString("email");
+            String password = "";
+            String role = rs.getString("role");
+            String status = rs.getString("status");
+            float money = rs.getFloat("money");
+            User user = new User(id, username, email, password, role, status, money);
+            users.add(user);
+        }
+        return users;
+    }
+
+
     public int insertUser(User user) throws SQLException {
         String sql = "insert into users (username, email, password, role, status) values (?,?,?,?,?);";
         int result = 0;
@@ -167,5 +188,21 @@ public class UserDao {
             return user;
         }
         return null;
+    }
+
+    public void blockUserById(int id) throws SQLException {
+        String sql = "update users set status = 'blocked' where id = ?";
+
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, id);
+        pstm.executeUpdate();
+    }
+
+    public void unblockUserById(int id) throws SQLException {
+        String sql = "update users set status = 'unblocked' where id = ?";
+
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, id);
+        pstm.executeUpdate();
     }
 }

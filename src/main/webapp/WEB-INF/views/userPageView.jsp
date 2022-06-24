@@ -2,16 +2,24 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>User Task</title>
+  <title>Catalog</title>
 </head>
 
 <body>
 
-<jsp:include page="_menu.jsp"></jsp:include>
+<jsp:include page="_header.jsp"></jsp:include>
 
-<h3>User Page</h3>
+<h2>Catalog</h2>
 
-Hello, This is a protected page!
+<h3>Menu</h3>
+<ul>
+  <li><a href="userEditions">Editions</a></li>
+  <li><a href="userSubscriptions">Subscriptions</a></li>
+  <li><a href="addmoney">Add money</a></li>
+  <li><a href="userInfo">Account Information</a></li>
+</ul>
+
+<jsp:include page="_footer.jsp"></jsp:include>
 
 </body>
 </html>

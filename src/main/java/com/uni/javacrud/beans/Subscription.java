@@ -6,12 +6,12 @@ public class Subscription {
     private int id;
     private String name;
     private float price;
-    private Date date_start;
-    private Date date_end;
+    private String date_start;
+    private String date_end;
     private int edition_id;
     private int user_id;
 
-    public Subscription(int id, String name, float price, Date date_start, Date date_end, int edition_id, int user_id) {
+    public Subscription(int id, String name, float price, String date_start, String date_end, int edition_id, int user_id) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -21,7 +21,7 @@ public class Subscription {
         this.user_id = user_id;
     }
 
-    public Subscription(String name, float price, Date date_start, Date date_end, int edition_id, int user_id) {
+    public Subscription(String name, float price, String date_start, String date_end, int edition_id, int user_id) {
         this.name = name;
         this.price = price;
         this.date_start = date_start;
@@ -54,19 +54,19 @@ public class Subscription {
         this.price = price;
     }
 
-    public Date getDate_start() {
+    public String getDate_start() {
         return date_start;
     }
 
-    public void setDate_start(Date date_start) {
+    public void setDate_start(String date_start) {
         this.date_start = date_start;
     }
 
-    public Date getDate_end() {
+    public String getDate_end() {
         return date_end;
     }
 
-    public void setDate_end(Date date_end) {
+    public void setDate_end(String date_end) {
         this.date_end = date_end;
     }
 

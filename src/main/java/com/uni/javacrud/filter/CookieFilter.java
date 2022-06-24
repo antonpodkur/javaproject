@@ -1,7 +1,7 @@
 package com.uni.javacrud.filter;
 
 import com.uni.javacrud.beans.User;
-import com.uni.javacrud.utils.DbUtils;
+import com.uni.javacrud.dao.UserDao;
 import com.uni.javacrud.utils.MyUtils;
 
 import javax.servlet.*;
@@ -35,12 +35,13 @@ public class CookieFilter implements Filter {
         }
 
         Connection conn = MyUtils.getStoredConnection(request);
+        UserDao userDao = new UserDao(conn);
 
         String checked = (String) session.getAttribute("COOKIE_CHECKED");
         if (checked == null && conn != null) {
             String username = MyUtils.getUserNameInCookie(req);
             try {
-                User user = DbUtils.findUserByUsername(conn, username);
+                User user = userDao.findUserByUsername(username);
                 MyUtils.storeLoginedUser(session, user);
             } catch (SQLException e) {
                 e.printStackTrace();

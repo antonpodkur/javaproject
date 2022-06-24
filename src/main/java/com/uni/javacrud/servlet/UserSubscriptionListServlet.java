@@ -1,7 +1,10 @@
 package com.uni.javacrud.servlet;
 
 import com.uni.javacrud.beans.Edition;
+import com.uni.javacrud.beans.Subscription;
+import com.uni.javacrud.beans.User;
 import com.uni.javacrud.dao.EditionDao;
+import com.uni.javacrud.dao.SubscriptionDao;
 import com.uni.javacrud.utils.MyUtils;
 
 import javax.servlet.*;
@@ -12,30 +15,31 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet(name = "EditionListServlet", value = "/editionList")
-public class EditionListServlet extends HttpServlet {
+@WebServlet(name = "UserSubscriptionListServlet", value = "/userSubscriptions")
+public class UserSubscriptionListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
-        EditionDao editionDao = new EditionDao(conn);
+        User logginedUser = MyUtils.getLoginedUser(request.getSession());
+        SubscriptionDao subscriptionDao = new SubscriptionDao(conn);
 
         String errorString = null;
-        List<Edition> editions = null;
+        List<Subscription> subscriptions = null;
         try {
-            editions = editionDao.queryEditions();
+            subscriptions = subscriptionDao.querySubscriptionsByUserId(logginedUser.getId());
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
         }
         request.setAttribute("errorString", errorString);
-        request.setAttribute("editionList", editions);
+        request.setAttribute("subscriptionList", subscriptions);
 
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/editionListView.jsp");
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/userSubscriptionsView.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+
     }
 }

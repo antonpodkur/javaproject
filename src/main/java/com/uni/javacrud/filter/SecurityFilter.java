@@ -35,6 +35,15 @@ public class SecurityFilter implements Filter {
         HttpServletRequest wrapRequest = request;
 
         if (loginedUser != null) {
+
+            if(loginedUser.getStatus().equals("blocked")) {
+                RequestDispatcher dispatcher //
+                        = request.getServletContext().getRequestDispatcher("/WEB-INF/views/accessDeniedView.jsp");
+
+                dispatcher.forward(request, response);
+                return;
+            }
+
             String userName = loginedUser.getUsername();
 
             String role = loginedUser.getRole();

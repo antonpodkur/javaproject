@@ -1,7 +1,7 @@
 package com.uni.javacrud.servlet;
 
 import com.uni.javacrud.beans.Edition;
-import com.uni.javacrud.utils.DbUtils;
+import com.uni.javacrud.dao.EditionDao;
 import com.uni.javacrud.utils.MyUtils;
 
 import javax.servlet.*;
@@ -24,6 +24,7 @@ public class CreateEditionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
+        EditionDao editionDao = new EditionDao(conn);
 
         String name = (String) request.getParameter("name");
         String priceStr = (String) request.getParameter("price");
@@ -39,8 +40,6 @@ public class CreateEditionServlet extends HttpServlet {
 
         String errorString = null;
 
-        // Кодом продукта является строка [a-zA-Z_0-9]
-        // Имеет минимум 1 символ.
         String regex = "\\w+";
 
         if (name == null || !name.matches(regex)) {
@@ -49,7 +48,7 @@ public class CreateEditionServlet extends HttpServlet {
 
         if (errorString == null) {
             try {
-                DbUtils.insertEdition(conn, edition);
+                editionDao.insertEdition(edition);
             } catch (SQLException e) {
                 e.printStackTrace();
                 errorString = e.getMessage();

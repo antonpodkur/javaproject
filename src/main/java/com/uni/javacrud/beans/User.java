@@ -28,7 +28,13 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
+        if (role == null || role.equals(""))
+        {
+            this.role="USER";
+        }
+        else {
+            this.role = role;
+        }
         this.status = status;
         this.money = money;
     }

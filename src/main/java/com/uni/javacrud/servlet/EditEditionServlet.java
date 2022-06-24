@@ -1,7 +1,7 @@
 package com.uni.javacrud.servlet;
 
 import com.uni.javacrud.beans.Edition;
-import com.uni.javacrud.utils.DbUtils;
+import com.uni.javacrud.dao.EditionDao;
 import com.uni.javacrud.utils.MyUtils;
 
 import javax.servlet.*;
@@ -16,6 +16,7 @@ public class EditEditionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
+        EditionDao editionDao = new EditionDao(conn);
 
         String idStr = (String) request.getParameter("id");
 
@@ -26,7 +27,7 @@ public class EditEditionServlet extends HttpServlet {
 
         try {
             id = Integer.parseInt(idStr);
-            edition = DbUtils.findEditionById(conn, id);
+            edition = editionDao.findEditionById(id);
         } catch (Exception e) {
             e.printStackTrace();
             errorString = e.getMessage();
@@ -48,6 +49,7 @@ public class EditEditionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = MyUtils.getStoredConnection(request);
+        EditionDao editionDao = new EditionDao(conn);
         String idStr = (String) request.getParameter("id");
         String name = (String) request.getParameter("name");
         String priceStr = (String) request.getParameter("price");
@@ -66,7 +68,7 @@ public class EditEditionServlet extends HttpServlet {
         String errorString = null;
 
         try {
-            DbUtils.updateEdition(conn, edition);
+            editionDao.updateEdition(edition);
         } catch (SQLException e) {
             e.printStackTrace();
             errorString = e.getMessage();
